@@ -1,6 +1,6 @@
 async function loadOverview() {
   try {
-    const res = await fetch("http://localhost:3000/api/data");
+    const res = await fetch("http://192.168.0.24:4000/api/data");
     const data = await res.json();
 
     updateChamber(
