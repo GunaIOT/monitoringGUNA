@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview - Monitoring</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ChartJS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
+
+  <!-- Custom Transition -->
+  <link rel="stylesheet" href="transition.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-gray-200 fade-in">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="w-72 fixed h-full bg-black/40 backdrop-blur-xl border-r border-white/10">
+    <div class="p-8 text-2xl font-bold tracking-wide border-b border-white/10">
+      Monitoring
+      <p class="text-sm text-gray-400 font-normal mt-1">
+        Industrial System
+      </p>
+    </div>
+
+    <nav class="p-6 space-y-4">
+      <a href="Dashboard.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        🏠 Home
+      </a>
+      <a href="Chamber.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        🌡 Chamber
+      </a>
+      <a href="Gas.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        🔥 Gas
+      </a>
+      <a href="Listrik.html" class="block px-6 py-3 rounded-xl bg-white/10 transition">
+        ⚡ Listrik
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 ml-72 p-8">
+
+    <h1 class="text-3xl font-semibold mb-8 tracking-wide">
+      ⚡ Monitoring Listrik
+    </h1>
+
+    <!-- Voltage Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl p-6 text-center">
+        <p class="text-sm text-gray-400 mb-2">Voltage Phase A</p>
+        <h2 class="text-4xl font-bold text-emerald-400">
+          <span id="va">--</span> V
+        </h2>
+      </div>
+
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl p-6 text-center">
+        <p class="text-sm text-gray-400 mb-2">Voltage Phase B</p>
+        <h2 class="text-4xl font-bold text-sky-400">
+          <span id="vb">--</span> V
+        </h2>
+      </div>
+
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl p-6 text-center">
+        <p class="text-sm text-gray-400 mb-2">Voltage Phase C</p>
+        <h2 class="text-4xl font-bold text-pink-400">
+          <span id="vc">--</span> V
+        </h2>
+      </div>
+
+    </div>
+
+    <!-- Energy Chart -->
+    <div class="bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-2xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4 text-yellow-400">
+        Total Energy (kWh)
+      </h2>
+      <canvas id="energyChart"></canvas>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- JS -->
+<script src="transition.js" defer></script>
+<script src="listrik-chart.js"></script>
+<script src="data-fetch.js"></script>
+
+</body>
+</html>

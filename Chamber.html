@@ -1,0 +1,184 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chamber - Monitoring</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
+
+    <!-- Custom CSS for Animation -->
+    <link rel="stylesheet" href="transition.css">
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-gray-200">
+
+  <div class="flex min-h-screen">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="w-72 bg-black/40 backdrop-blur-xl border-r border-white/10 fixed h-full">
+      <div class="p-8 text-2xl font-bold tracking-wide border-b border-white/10">
+        Monitoring Chamber
+      </div>
+
+      <nav class="p-6 space-y-3">
+        <a href="Dashboard.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+          Home
+        </a>
+        <a href="Chamber.html" class="block px-6 py-3 rounded-xl bg-white/10 transition">
+          Chamber
+        </a>
+        <a href="Gas.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+          Gas
+        </a>
+        <a href="Listrik.html" class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+          Listrik
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="flex-1 ml-72 p-6">
+      <div class="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- ================= CHAMBER 1 ================= -->
+        <div class="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl border border-white/10 p-6">
+          <h1 class="text-2xl font-semibold mb-4">Monitoring Chamber 1</h1>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Temperature</p>
+              <h2 class="text-3xl font-bold text-emerald-400">
+                <span id="temp1">--</span> °C
+              </h2>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Humidity</p>
+              <h2 class="text-3xl font-bold text-sky-400">
+                <span id="hum1">--</span> %
+              </h2>
+            </div>
+          </div>
+
+          <div class="bg-black/30 rounded-xl p-4 h-[320px]">
+            <h3 class="text-xs uppercase tracking-wider mb-2 text-gray-400">
+              Temperature & Humidity Trend
+            </h3>
+            <div class="relative h-[260px]">
+              <canvas id="tempChart1"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= CHAMBER 2 ================= -->
+        <div class="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl border border-white/10 p-6">
+          <h1 class="text-2xl font-semibold mb-4">Monitoring Chamber 2</h1>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Temperature</p>
+              <h2 class="text-3xl font-bold text-emerald-400">
+                <span id="temp2">--</span> °C
+              </h2>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Humidity</p>
+              <h2 class="text-3xl font-bold text-sky-400">
+                <span id="hum2">--</span> %
+              </h2>
+            </div>
+          </div>
+
+          <div class="bg-black/30 rounded-xl p-4 h-[320px]">
+            <h3 class="text-xs uppercase tracking-wider mb-2 text-gray-400">
+              Temperature & Humidity Trend
+            </h3>
+            <div class="relative h-[260px]">
+              <canvas id="tempChart2"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= CHAMBER 3 ================= -->
+        <div class="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl border border-white/10 p-6">
+          <h1 class="text-2xl font-semibold mb-4">Monitoring Chamber 3</h1>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Temperature</p>
+              <h2 class="text-3xl font-bold text-emerald-400">
+                <span id="temp3">--</span> °C
+              </h2>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Humidity</p>
+              <h2 class="text-3xl font-bold text-sky-400">
+                <span id="hum3">--</span> %
+              </h2>
+            </div>
+          </div>
+
+          <div class="bg-black/30 rounded-xl p-4 h-[320px]">
+            <h3 class="text-xs uppercase tracking-wider mb-2 text-gray-400">
+              Temperature & Humidity Trend
+            </h3>
+            <div class="relative h-[260px]">
+              <canvas id="tempChart3"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= CHAMBER 4 ================= -->
+        <div class="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl border border-white/10 p-6">
+          <h1 class="text-2xl font-semibold mb-4">Monitoring Chamber 4</h1>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Temperature</p>
+              <h2 class="text-3xl font-bold text-emerald-400">
+                <span id="temp4">--</span> °C
+              </h2>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4">
+              <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Humidity</p>
+              <h2 class="text-3xl font-bold text-sky-400">
+                <span id="hum4">--</span> %
+              </h2>
+            </div>
+          </div>
+
+          <div class="bg-black/30 rounded-xl p-4 h-[320px]">
+            <h3 class="text-xs uppercase tracking-wider mb-2 text-gray-400">
+              Temperature & Humidity Trend
+            </h3>
+            <div class="relative h-[260px]">
+              <canvas id="tempChart4"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- JS -->
+  <script src="transition.js" defer></script>
+  <script src="temp-chart.js"></script>
+  <script src="data-fetch.js"></script>
+
+  </body>
+  </html>

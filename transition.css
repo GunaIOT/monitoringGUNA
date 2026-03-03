@@ -1,0 +1,166 @@
+/* Smooth page transitions, respects prefers-reduced-motion */
+:root{
+  --transition-duration: 350ms;
+  --easing: cubic-bezier(.2,.9,.2,1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { transition: none !important; animation: none !important; }
+}
+
+/* initial state before JS activates */
+body.page-transition-init{
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* visible state */
+body.page-transition-ready{
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--transition-duration) var(--easing), transform var(--transition-duration) var(--easing);
+}
+
+/* exit state when navigating away */
+body.page-transition-exit{
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity var(--transition-duration) var(--easing), transform var(--transition-duration) var(--easing);
+  pointer-events: none;
+}
+
+/* small accessible loader shown briefly during navigation (optional) */
+.transition-loader{
+  position:fixed; inset:auto 0 20px 0; display:flex; justify-content:center; gap:.6rem; pointer-events:none; z-index:9999;
+}
+.transition-loader .dot{ width:8px; height:8px; border-radius:50%; background:rgba(0,0,0,.6); opacity:.85; animation: bounce 900ms infinite; }
+.transition-loader .dot:nth-child(2){ animation-delay:120ms }
+.transition-loader .dot:nth-child(3){ animation-delay:240ms }
+@keyframes bounce{ 0%{ transform:translateY(0); }50%{ transform:translateY(-6px);}100%{ transform:translateY(0);} }
+
+/* Light, non-invasive enhancements (keeps Tailwind defaults intact)
+   - Does not override `body` or `.bg-white` backgrounds so existing Tailwind classes remain authoritative.
+   - Adds subtle hover lift and an accent bar for sidebar links using indigo tones.
+*/
+:root{
+  --hover-elevation: -6px;
+  --hover-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  --accent-start: #7c3aed; /* indigo-600 */
+  --accent-end: #4f46e5;   /* indigo-500 */
+  --accent-glow: rgba(79,70,229,0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-white.rounded-xl.shadow,
+  aside nav a { transition: none !important; }
+}
+
+/* Card lift (no color/background overrides) */
+.bg-white.rounded-xl.shadow{
+  transition: transform var(--transition-duration) var(--easing), box-shadow var(--transition-duration) var(--easing), border-color var(--transition-duration) var(--easing);
+  will-change: transform;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+.bg-white.rounded-xl.shadow:hover,
+.bg-white.rounded-xl.shadow:focus-within{
+  transform: translateY(var(--hover-elevation));
+  box-shadow: var(--hover-shadow);
+  border-color: rgba(79,70,229,0.06);
+}
+
+/* Sidebar accent bar and subtle hover (inherits existing Tailwind colors) */
+aside nav a{
+  position: relative;
+  transition: transform var(--transition-duration) var(--easing), background var(--transition-duration) var(--easing), color var(--transition-duration) var(--easing);
+}
+aside nav a::before{
+  content: '';
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 4px;
+  height: 56%;
+  background: linear-gradient(180deg, var(--accent-start), var(--accent-end));
+  border-radius: 4px;
+  transition: transform var(--transition-duration) var(--easing), opacity var(--transition-duration) var(--easing);
+  opacity: 0;
+}
+aside nav a:hover::before,
+aside nav a:focus::before,
+aside nav a.active::before{
+  transform: translateY(-50%) scaleY(1);
+  opacity: 1;
+}
+aside nav a:hover{
+  transform: translateX(6px);
+  background: var(--accent-glow);
+}
+aside nav a:focus{ outline: none; }
+aside nav a:focus-visible{ box-shadow: 0 0 0 3px rgba(79,70,229,0.12); border-radius: 0.5rem; }
+
+/* Elegant hover effects for buttons */
+button, .btn {
+  transition: all var(--transition-duration) var(--easing);
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle glow effect for interactive elements */
+button::before, .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+button:hover::before, .btn:hover::before {
+  left: 100%;
+}
+
+/* Elegant hover for cards with gradient border */
+.card-hover {
+  transition: all var(--transition-duration) var(--easing);
+  border: 1px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, var(--accent-start), var(--accent-end)) border-box;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+  border-image: linear-gradient(45deg, var(--accent-start), var(--accent-end)) 1;
+}
+
+/* Glassmorphism card hover effects */
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl,
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl.p-6,
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl.p-8 {
+  transition: all var(--transition-duration) var(--easing);
+  will-change: transform, box-shadow, border-color;
+}
+
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl:hover,
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl.p-6:hover,
+.bg-white\/5.backdrop-blur-xl.border.border-white\/10.rounded-2xl.shadow-xl.p-8:hover {
+  transform: translateY(var(--hover-elevation));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(79, 70, 229, 0.2);
+  backdrop-filter: blur(20px);
+}
+

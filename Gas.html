@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Monitoring Gas</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-black text-gray-200 fade-in">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="w-72 bg-white/5 backdrop-blur-2xl fixed h-full border-r border-white/10 shadow-[0_0_60px_rgba(0,0,0,0.6)]">
+
+    <div class="p-8 text-2xl font-bold tracking-wide border-b border-white/10">
+      Monitoring Chamber
+    </div>
+
+    <nav class="p-6 space-y-3">
+
+      <a href="Dashboard.html"
+         class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        Home
+      </a>
+
+      <a href="Chamber.html"
+         class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        Chamber
+      </a>
+
+      <a href="Gas.html"
+         class="block px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30">
+        Gas
+      </a>
+
+      <a href="Listrik.html"
+         class="block px-6 py-3 rounded-xl hover:bg-white/10 transition">
+        Listrik
+      </a>
+
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="flex-1 ml-72 p-10 space-y-10">
+
+    <h1 class="text-3xl font-semibold tracking-tight">
+      Monitoring Gas Meter
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <!-- ================= GAS CARD TEMPLATE ================= -->
+      <!-- DUPLICATE STRUCTURE FOR GAS 1,2,3 -->
+
+      <!-- GAS 1 -->
+      <div class="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)] overflow-hidden">
+
+        <!-- Glow Background -->
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
+
+        <!-- Live Indicator -->
+        <div class="absolute top-6 right-8 flex items-center gap-2">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-xs text-gray-400 tracking-wider">LIVE</span>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-8 relative z-10">Plasticizer</h2>
+
+        <!-- INFO -->
+        <div class="grid grid-cols-2 gap-6 mb-8 relative z-10">
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:border-red-400/40 transition-all duration-300">
+            <p class="text-xs uppercase text-gray-400 mb-2">Flow</p>
+            <p class="text-3xl font-bold text-red-400 drop-shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+              <span id="gas1_flow">--</span> m³/h
+            </p>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
+            <p class="text-xs uppercase text-gray-400 mb-2">Volume</p>
+            <p class="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_12px_rgba(0,180,255,0.7)]">
+              <span id="gas1_volume">--</span> m³
+            </p>
+          </div>
+
+        </div>
+
+        <!-- CHART -->
+        <div class="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 h-[320px] border border-white/10 shadow-inner">
+          <canvas id="gasChart1"></canvas>
+        </div>
+
+      </div>
+
+
+      <!-- GAS 2 -->
+      <div class="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)] overflow-hidden">
+
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
+
+        <div class="absolute top-6 right-8 flex items-center gap-2">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-xs text-gray-400 tracking-wider">LIVE</span>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-8">Dryer</h2>
+
+        <div class="grid grid-cols-2 gap-6 mb-8">
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10">
+            <p class="text-xs uppercase text-gray-400 mb-2">Flow</p>
+            <p class="text-3xl font-bold text-red-400 drop-shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+              <span id="gas2_flow">--</span> m³/h
+            </p>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10">
+            <p class="text-xs uppercase text-gray-400 mb-2">Volume</p>
+            <p class="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_12px_rgba(0,180,255,0.7)]">
+              <span id="gas2_volume">--</span> m³
+            </p>
+          </div>
+
+        </div>
+
+        <div class="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 h-[320px] border border-white/10 shadow-inner">
+          <canvas id="gasChart2"></canvas>
+        </div>
+
+      </div>
+
+
+      <!-- GAS 3 -->
+      <div class="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)] overflow-hidden">
+
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
+
+        <div class="absolute top-6 right-8 flex items-center gap-2">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-xs text-gray-400 tracking-wider">LIVE</span>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-8">Boiler</h2>
+
+        <div class="grid grid-cols-2 gap-6 mb-8">
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10">
+            <p class="text-xs uppercase text-gray-400 mb-2">Flow</p>
+            <p class="text-3xl font-bold text-red-400 drop-shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+              <span id="gas3_flow">--</span> m³/h
+            </p>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10">
+            <p class="text-xs uppercase text-gray-400 mb-2">Volume</p>
+            <p class="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_12px_rgba(0,180,255,0.7)]">
+              <span id="gas3_volume">--</span> m³
+            </p>
+          </div>
+
+        </div>
+
+        <div class="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 h-[320px] border border-white/10 shadow-inner">
+          <canvas id="gasChart3"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- JS -->
+<script src="gas-chart.js"></script>
+<script src="data-fetch.js"></script>
+
+</body>
+</html>
