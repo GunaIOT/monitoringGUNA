@@ -112,6 +112,6 @@ app.get("/api/power", (req, res) => {
 
 const PORT = 4000; // bebas ganti kalau mau
 
-app.listen(PORT, '8.8.8.7', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://192.168.0.24:${PORT}`);
 });
