@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchPower() {
     try {
-      const res = await fetch("http://localhost:3000/api/power");
+      const res = await fetch("http://192.168.0.24:4000/api/power");
       const data = await res.json();
 
       const time = new Date().toLocaleTimeString();

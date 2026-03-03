@@ -1,6 +1,6 @@
 async function fetchData() {
   try {
-    const response = await fetch("http://localhost:3000/api/data");
+    const response = await fetch("http://192.168.0.24:4000/api/data");
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
