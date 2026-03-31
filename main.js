@@ -7,9 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.static(__dirname));
 
-/* ================= CACHE DATA ================= */
-
-// ===== CHAMBER =====
 const chambers = {
   chamber1: { temperature: null, humidity: null },
   chamber2: { temperature: null, humidity: null },
@@ -17,14 +14,12 @@ const chambers = {
   chamber4: { temperature: null, humidity: null }
 };
 
-// ===== GAS =====
 const gasMeters = {
   gas1: { flow: 0, volume: 0 },
   gas2: { flow: 0, volume: 0 },
   gas3: { flow: 0, volume: 0 }
-};
+}; 
 
-// ===== POWER =====
 let powerData = {
   voltageA: 0,
   voltageB: 0,
@@ -32,9 +27,7 @@ let powerData = {
   energy: 0
 };
 
-/* ================= MQTT ================= */
-
-const client = mqtt.connect("mqtt://broker.hivemq.com");
+const client = mqtt.connect("mqtt://192.168.0.24:1883", );
 
 client.on("connect", () => {
   console.log("✅ MQTT Connected");
@@ -91,14 +84,10 @@ client.on("message", (topic, message) => {
   }
 });
 
-/* ================= ROUTE ================= */
-
-// ROOT → Dashboard
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Dashboard.html"));
 });
 
-// API
 app.get("/api/data", (req, res) => {
   res.json({ chambers, gasMeters, powerData });
 });
@@ -107,10 +96,8 @@ app.get("/api/power", (req, res) => {
   res.json(powerData);
 });
 
-/* ================= START SERVER ================= */
-
 const PORT = 4000;
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "192.168.0.24", () => {
   console.log(`🚀 Server running at http://192.168.0.24:${PORT}`);
 });

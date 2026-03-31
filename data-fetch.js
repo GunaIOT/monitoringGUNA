@@ -9,7 +9,7 @@ async function fetchData() {
     const data = await response.json();
 
     /* ===============================
-       CHAMBER UI UPDATE
+       CHAMBER UI UPDATE  
     =============================== */
     function updateChamber(chamber, tempId, humId) {
       if (!chamber) return;
