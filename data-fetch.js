@@ -136,6 +136,30 @@ async function fetchData() {
       data?.gasMeters?.gas3?.volume
     );
 
+
+    /* ===============================
+       ✅ POWER UI UPDATE (DITAMBAHKAN)
+    =============================== */
+    function updatePowerUI(power) {
+      if (!power) return;
+
+      const energyEl = document.getElementById("energy");
+      const vAEl     = document.getElementById("voltageA");
+      const vBEl     = document.getElementById("voltageB");
+      const vCEl     = document.getElementById("voltageC");
+
+      if (energyEl) energyEl.textContent = Number(power.energy ?? 0).toFixed(2);
+      if (vAEl)     vAEl.textContent     = Number(power.voltageA ?? 0).toFixed(1);
+      if (vBEl)     vBEl.textContent     = Number(power.voltageB ?? 0).toFixed(1);
+      if (vCEl)     vCEl.textContent     = Number(power.voltageC ?? 0).toFixed(1);
+    }
+
+    // ✅ PANGGIL DI DALAM TRY
+    updatePowerUI(data?.powerData);
+
+    // (opsional debug)
+    console.log("POWER DATA:", data.powerData);
+
   } catch (error) {
     console.error("Fetch error:", error);
   }
